@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql
+    container_name: mariadb
+    restart: always
+    tty: true
+
+    ports:
+      - 3306:3308
+    volumes:
+      - ./dockerdb/dbdata:/var/lib/mysql
+    
+    env_file:
+      - ../.env
+     
