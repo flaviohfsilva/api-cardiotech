@@ -20,7 +20,3 @@ services:
   django:
     container_name: django
     image: django
-    
-  # djangorest:
-  #   container_name: django-rest
-  #   image: djangorestframework

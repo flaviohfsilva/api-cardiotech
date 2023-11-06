@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_cardiotech',
     'rest_framework',
-    # 'rest_framework_swagger',
+    'drf_yasg'
+    # 'rest_framework_swagger'
 ]
 
 
@@ -78,10 +80,14 @@ WSGI_APPLICATION = 'api_cardiotech.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': os.getenv('MYSQL_DATABASE'),
+    #     'USER': os.getenv('MYSQL_USER'),
+    #     'PASSWORD': os.getenv('MYSQL_ROOT_PASSWORD'),
+    #     'HOST': 'db',  # Nome do serviço do banco de dados no Docker Compose
+    #     'PORT': '3308',  # Porta mapeada no Docker Compose
+    # }
 }
 
 
@@ -107,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Recife'
 
 USE_I18N = True
 
