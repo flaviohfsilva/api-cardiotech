@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7ww_r=!e3!j33^+6k5+x#_=#%442m@aaras#4tl&^r2g15qf^m'
+SECRET_KEY = 'django-insecure-%#gfa+xy%ym*+9e!$c+s1@c6r3-uuar+es$-@f6ok=)0f$(-o%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api_cardiotech',
     'rest_framework',
-    'drf_yasg'
-    # 'rest_framework_swagger'
+    'drf_yasg',
+    # 'api_cardiotech'
+    'medicos',
+    'clinica',
+    'agendamento',
+    'paciente'
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,11 +83,11 @@ WSGI_APPLICATION = 'api_cardiotech.wsgi.application'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': os.getenv('MYSQL_DATABASE'),
-    #     'USER': os.getenv('MYSQL_USER'),
-    #     'PASSWORD': os.getenv('MYSQL_ROOT_PASSWORD'),
-    #     'HOST': 'db',  # Nome do serviço do banco de dados no Docker Compose
-    #     'PORT': '3308',  # Porta mapeada no Docker Compose
+    #     'NAME': 'cardiotech',
+    #     'USER': 'flavio-user',
+    #     'PASSWORD': 'C@rdIoT&cH6020',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
     # }
 }
 
@@ -113,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Recife'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
