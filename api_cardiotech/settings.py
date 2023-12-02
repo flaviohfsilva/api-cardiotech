@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
-    # 'api_cardiotech'
+    # 'api_cardiotech',
     'medicos',
     'clinica',
     'agendamento',
@@ -81,14 +81,14 @@ WSGI_APPLICATION = 'api_cardiotech.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'cardiotech',
-    #     'USER': 'flavio-user',
-    #     'PASSWORD': 'C@rdIoT&cH6020',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
+    'default': {
+        # 'ENGINE': 'sqlserver_pyodbc',
+        # 'NAME': 'cardiotech',
+        # 'USER': 'flavio-user',
+        # 'PASSWORD': 'C@rdIoT&cH6020',
+        # 'HOST': 'localhost',
+        # 'PORT': '',
+    }
 }
 
 
