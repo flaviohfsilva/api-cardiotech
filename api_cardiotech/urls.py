@@ -36,6 +36,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-cardiotech/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('Clinica/', include('clinica.urls')),
+    path('Medicos/', include('medicos.urls')),
+    path('Pacientes/', include('paciente.urls')),
+    path('Agendamentos/', include('agendamento.urls')),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
