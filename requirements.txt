@@ -1,6 +1,9 @@
 Django==4.2.6
 djangorestframework==3.14.0
+# django-mssql-backend
+# mysqlclient
+pymysql
+# MySQLdb
 drf-yasg
-mysqlclient==2.2.0
 Pillow
-# djangorestframework-swagger
+requests

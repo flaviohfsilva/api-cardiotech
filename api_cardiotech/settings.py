@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
+
+pymysql.version_info =(1, 4, 6, 'final', 0)
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
-    # 'api_cardiotech'
+    # 'api_cardiotech',
     'medicos',
     'clinica',
     'agendamento',
@@ -81,15 +85,17 @@ WSGI_APPLICATION = 'api_cardiotech.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'cardiotech',
-    #     'USER': 'flavio-user',
-    #     'PASSWORD': 'C@rdIoT&cH6020',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cardiotech',
+        'USER': 'flavio-user',
+        'PASSWORD': 'C@rdIoT&cH6020',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
 }
+
+# db = pymysql.connect(host="localhost", user="flavio-user", password="C@rdIoT&cH6020", database="cardiotech", port=3306)
 
 
 # Password validation
