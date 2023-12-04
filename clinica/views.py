@@ -28,8 +28,7 @@ def listar_clinica(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def listar_clinica_por_id(request):
-    id = request.query_params['id']
-    clinica = Clinica.objects.get(idClinica=id)
+def listar_clinica_por_id(request, id):
+    clinica = Clinica.objects.filter(idClinica=id)
     serializer = ClinicaSerializer(clinica)
     return Response(serializer.data)

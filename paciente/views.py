@@ -23,9 +23,8 @@ def listar_pacientes(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def listar_pacientes_por_id(request):
-    id = request.query_params['id']
-    pacientes = Paciente.objects.get(idPaciente=id)
+def listar_pacientes_por_id(request, id):
+    pacientes = Paciente.objects.filter(idPaciente=id)
     serializer = PacienteSerializer(pacientes, many=True)
     return Response(serializer.data)
 

@@ -25,9 +25,8 @@ def listar_agendamento(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def listar_agendamentos_por_id(request):
-    id = request.query_params['id']
-    agenda = Agendamento.objects.get(idMedico=id)
+def listar_agendamentos_por_id(request, id):
+    agenda = Agendamento.objects.filter(idMedico=id)
     serializer = AgendamentoSerializer(agenda, many=True)
     return Response(serializer.data)
 
