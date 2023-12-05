@@ -39,6 +39,7 @@ urlpatterns = [
     path('Medicos/', include('medicos.urls')),
     path('Pacientes/', include('paciente.urls')),
     path('Agendamentos/', include('agendamento.urls')),
+    # path('Pulse/', include('pulse.urls')),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 

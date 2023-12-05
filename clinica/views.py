@@ -5,6 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from clinica.models import Clinica
+from medicos.serializers import MedicoSerializer
 from .serializers import ClinicaSerializer
 
 # Create your views here.
@@ -29,6 +30,14 @@ def listar_clinica(request):
 
 @api_view(['GET'])
 def listar_clinica_por_id(request, id):
-    clinica = Clinica.objects.filter(idClinica=id)
+    clinica = Clinica.objects.filter(idClinica=id).first()
     serializer = ClinicaSerializer(clinica)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def clinica_medico(request, id):
+    clinica = Clinica.objects.filter(idClinica=id).first()
+    medico = clinica.medico
+
+    serializer = MedicoSerializer(medico)
     return Response(serializer.data)

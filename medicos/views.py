@@ -6,12 +6,35 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import status
+from django.contrib.auth import authenticate
+# from rest_framework.authentication import TokenAuthentication
+# from rest_framework_jwt.authentication import api_settings
 
 
 from medicos.models import Medico
 from .serializers import MedicoSerializer
 
 # Create your views here.
+
+# @api_view(['POST'])
+# def login(request):
+#     data = request.data
+#     try:
+#         medico = authenticate(crm=data['crm'], senha=data['senha'])
+#     except KeyError:
+#         return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
+
+#     if medico is not None:
+#         jwt_payload = {
+#             'idMedico': medico.id,
+#             'nome': medico.nomeCompleto,
+#             'crm': medico.crm
+#         }
+#         token = api_settings.JWT_PAYLOAD_HANDLER(jwt_payload)
+#         return Response({'Token': token, 'Médico': jwt_payload})
+
+#     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 @api_view(['POST'])
 @parser_classes([JSONParser])
 def cadastrar_medico(self, request):
@@ -36,6 +59,15 @@ def listar_medicos_por_id(request, id):
     serializer = MedicoSerializer(medicos, many=True)
     # print('Médico pesquisado:', serializer.data)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def informacoes_medicos(request, id):
+    medicos = Medico.objects.filter(idMedico=id).first()
+    # medico = medicos.first()
+    serializer = MedicoSerializer(medicos)
+    nome = serializer.data.get('nomeCompleto')
+    return Response({'Nome': nome})
 
 # @api_view(['POST'])
 # def login():

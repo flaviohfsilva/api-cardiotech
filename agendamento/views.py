@@ -6,6 +6,7 @@ from rest_framework import status
 
 from agendamento.models import Agendamento
 from .serializer import AgendamentoSerializer
+from medicos.serializers import MedicoSerializer
 
 # Create your views here.
 @api_view(['POST'])
@@ -20,15 +21,28 @@ def agendar_consulta(request):
 
 @api_view(['GET'])
 def listar_agendamento(request):
-    medicos = Agendamento.objects.all()
-    serializer = AgendamentoSerializer(medicos, many=True)
+    agenda = Agendamento.objects.all()
+  
+    serializer = AgendamentoSerializer(agenda, many=True),
     return Response(serializer.data)
 
 @api_view(['GET'])
 def listar_agendamentos_por_id(request, id):
-    agenda = Agendamento.objects.filter(idMedico=id)
-    serializer = AgendamentoSerializer(agenda, many=True)
-    return Response(serializer.data)
+    agenda = Agendamento.objects.filter(idAgendamento=id).first()
+    
+    medico = agenda.medico
+    paciente = agenda.paciente
+    # clinica = agenda.medico.clinica
+
+    dados = {
+        "paciente": paciente.nomeCompleto,
+        "data": agenda.data,
+        "motivo": agenda.motivo,
+        "médico": medico.nomeCompleto,
+        # "clínica": 
+    }
+
+    return Response(dados)
 
 @api_view(['DELETE'])
 @parser_classes([JSONParser])

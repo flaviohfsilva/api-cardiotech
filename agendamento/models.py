@@ -1,4 +1,5 @@
 from django.db import models
+from clinica.models import Clinica
 
 from medicos.models import Medico
 from paciente.models import Paciente
@@ -10,6 +11,7 @@ class Agendamento(models.Model):
     motivo = models.CharField(max_length=255)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    # clinica = models.ForeignKey(Clinica, on_delete=models.CASCADE)
 
 
 class Meta:

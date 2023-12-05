@@ -18,13 +18,22 @@ def cadastrar_paciente(request):
 
 @api_view(['GET'])
 def listar_pacientes(request):
-    pacientes = Paciente.objects.all()
-    serializer = PacienteSerializer(pacientes, many=True)
+    paciente = Paciente.objects.all()
+    serializer = PacienteSerializer(paciente, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def listar_pacientes_por_id(request, id):
-    pacientes = Paciente.objects.filter(idPaciente=id)
-    serializer = PacienteSerializer(pacientes, many=True)
+def listar_paciente_por_id(request, id):
+    paciente = Paciente.objects.filter(idPaciente=id).first()
+    serializer = PacienteSerializer(paciente)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def listar_total_pacientes(request):
+    pacientes = Paciente.objects.all()
+    serializer = PacienteSerializer(pacientes, many=True)
+    total = pacientes.count()
+    data = {'Total de pacientes': total}
+    return Response(data, content_type='application/json')
 

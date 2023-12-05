@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'medicos',
     'clinica',
     'agendamento',
-    'paciente'
+    'paciente',
+    'pulse'
 ]
 
 MIDDLEWARE = [
@@ -96,6 +97,13 @@ DATABASES = {
 }
 
 # db = pymysql.connect(host="localhost", user="flavio-user", password="C@rdIoT&cH6020", database="cardiotech", port=3306)
+
+
+
+# DEFAULT_AUTHENTICATION_CLASSES =  [ 
+#     'rest_framework.authentication.TokenAuthentication'
+# ]
+
 
 
 # Password validation
