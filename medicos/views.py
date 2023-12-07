@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.contrib.auth import authenticate
+import jwt
 # from rest_framework.authentication import TokenAuthentication
 # from rest_framework_jwt.authentication import api_settings
 
@@ -16,24 +17,30 @@ from .serializers import MedicoSerializer
 
 # Create your views here.
 
-# @api_view(['POST'])
-# def login(request):
-#     data = request.data
-#     try:
-#         medico = authenticate(crm=data['crm'], senha=data['senha'])
-#     except KeyError:
-#         return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def login(request):
+    try:
+        # medico = authenticate(crm=requesdata['crm'], senha=data['senha'])
+        crm = request.data['crm']
+        senha = request.data['senha']
 
-#     if medico is not None:
-#         jwt_payload = {
-#             'idMedico': medico.id,
-#             'nome': medico.nomeCompleto,
-#             'crm': medico.crm
-#         }
-#         token = api_settings.JWT_PAYLOAD_HANDLER(jwt_payload)
-#         return Response({'Token': token, 'Médico': jwt_payload})
+        medico = Medico.objects.filter(crm=crm).first()
+    except KeyError:
+        return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
 
-#     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    if medico is not None:
+        jwt_payload = {
+            'idMedico': medico.idMedico,
+            'nome': medico.nomeCompleto,
+            'crm': medico.crm,
+            'email': medico.email,
+            # 'foto': medico.foto
+            # 'exp': datetime.datetime.utcnow()
+        }
+        token = jwt.encode(jwt_payload, 'secret', algorithm='HS256').decode('utf-8')
+        return Response({'Token': token, 'Médico': jwt_payload})
+
+    return Response({'error': 'Credências inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
@@ -68,12 +75,6 @@ def informacoes_medicos(request, id):
     serializer = MedicoSerializer(medicos)
     nome = serializer.data.get('nomeCompleto')
     return Response({'Nome': nome})
-
-# @api_view(['POST'])
-# def login():
-
-# @api_view(['PATCH'])
-# def atualizar_senha():
 
 @api_view(['PUT'])
 def atualizar_informacoes(request, id):

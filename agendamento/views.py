@@ -21,27 +21,98 @@ def agendar_consulta(request):
 
 @api_view(['GET'])
 def listar_agendamento(request):
-    agenda = Agendamento.objects.all()
-  
-    serializer = AgendamentoSerializer(agenda, many=True),
-    return Response(serializer.data)
+    agendamentos = Agendamento.objects.all()
+    dados = []
+
+    for agenda in agendamentos:
+        paciente = agenda.paciente
+        medico = agenda.medico
+        clinica = agenda.clinica
+
+        dados_agenda = {
+            "idAgendamento": agenda.idAgendamento,
+            "paciente": paciente.nomeCompleto,
+            "data": agenda.data,
+            "motivo": agenda.motivo,
+            "medico": medico.nomeCompleto,
+            "idMedico": medico.idMedico,
+            "clinica": clinica.nome
+        }
+
+        dados.append(dados_agenda)
+
+    serializer = AgendamentoSerializer(agendamentos, many=True)
+    # print("oi", dados)
+    return Response(dados)
 
 @api_view(['GET'])
 def listar_agendamentos_por_id(request, id):
+    print(request)
+    agenda = Agendamento.objects.filter(idAgendamento=id).exists()
+    if not agenda:
+        return Response({'error': 'Agendamento não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
     agenda = Agendamento.objects.filter(idAgendamento=id).first()
     
     medico = agenda.medico
     paciente = agenda.paciente
-    # clinica = agenda.medico.clinica
+    clinica = agenda.clinica
 
     dados = {
         "paciente": paciente.nomeCompleto,
         "data": agenda.data,
         "motivo": agenda.motivo,
-        "médico": medico.nomeCompleto,
-        # "clínica": 
+        "medico": medico.nomeCompleto,
+        "clinica": clinica.nome
     }
 
+    # print(dados)
+
+    return Response(dados)
+
+
+@api_view(['GET'])
+def listar_pacientes_atendidos(request):
+    agendamentos_atendidos = Agendamento.objects.filter(atendido=True)
+    dados = []
+
+    for agenda in agendamentos_atendidos:
+
+        paciente = agenda.paciente
+
+        dados_agenda_atendidos = {
+            "idAgendamento": agenda.idAgendamento,
+            "paciente": paciente.nomeCompleto,
+            "atendido": agenda.atendido
+        }
+
+        dados.append(dados_agenda_atendidos)
+
+    serializer = AgendamentoSerializer(agendamentos_atendidos, many=True)
+    # print("oi", dados)
+    return Response(dados)
+
+@api_view(['GET'])
+def listar_pacientes_faltantes(request):
+    pacientes_faltantes = Agendamento.objects.filter(faltou=True)
+    dados = []
+
+    for agenda in pacientes_faltantes:
+
+        paciente = agenda.paciente
+
+        dados_agenda_faltas = {
+            "idAgendamento": agenda.idAgendamento,
+            "paciente": paciente.nomeCompleto,
+            "data": agenda.data,
+            "motivo": agenda.motivo,
+            "faltou": agenda.faltou
+        }
+
+        dados.append(dados_agenda_faltas)
+
+    serializer = AgendamentoSerializer(pacientes_faltantes, many=True)
+    # print("oi", dados)
     return Response(dados)
 
 @api_view(['DELETE'])

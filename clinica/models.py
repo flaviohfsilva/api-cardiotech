@@ -17,7 +17,6 @@ class Clinica(models.Model):
     cnpj = models.CharField(max_length=14)
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
 
-
 class Meta:
     ordering = ['idClinica', 'nome_clinica']
     verbose_name = 'Clinica'

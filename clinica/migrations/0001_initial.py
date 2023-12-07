@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('razaoSocial', models.CharField(max_length=255)),
                 ('email', models.CharField(max_length=255)),
                 ('cnpj', models.CharField(max_length=14)),
-                ('medico', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='medicos.medico')),
+                ('medico', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='medicos.medico'))
             ],
         ),
     ]

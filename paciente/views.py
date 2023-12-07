@@ -9,6 +9,7 @@ from .serializers import PacienteSerializer
 # Create your views here.
 @api_view(['POST'])
 def cadastrar_paciente(request):
+    print(request)
     if request.method == 'POST':
         serializer = PacienteSerializer(data=request.data)
         if serializer.is_valid():

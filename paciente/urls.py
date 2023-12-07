@@ -5,7 +5,7 @@ from paciente.views import cadastrar_paciente, listar_pacientes, listar_paciente
 
 urlpatterns = [
     path('cadastrarPaciente/', cadastrar_paciente, name='Pacientes'),
-    path('listarPaciente/', listar_pacientes, name='Pacientes'),
+    path('listarPaciente/', listar_pacientes, name='listar_pacientes'),
     path('listarPaciente/<int:id>', listar_paciente_por_id, name='Pacientes'),
     path('totalPacientes/', listar_total_pacientes, name='Pacientes')
 ]
